@@ -1,0 +1,25 @@
+.RegisterContainer {
+  margin-top: 2em;
+}
+.RegisterContainer .ant-form-item-label {
+  text-align: left;
+}
+.RegisterContainer .AvatarUploader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5em;
+}
+.RegisterContainer .AvatarUploader svg {
+  margin: 0 0.5em;
+  cursor: pointer;
+}
+.RegisterContainer .AvatarUploader .text {
+  padding: 0.5em;
+}
+.RegisterContainer .AvatarUploader img {
+  border-radius: 40px;
+  width: 40px;
+}
+.RegisterContainer .ant-form-item {
+  margin-top: 2em;
+}

@@ -1,0 +1,8 @@
+.HomeVoteContainer .Vote {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 80px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}

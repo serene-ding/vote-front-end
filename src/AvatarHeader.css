@@ -1,0 +1,11 @@
+.AvatarHeaderContainer {
+  border: 1px solid #f0f0f0;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.AvatarHeaderContainer img {
+  width: 50px;
+  border-radius: 50px;
+}

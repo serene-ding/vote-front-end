@@ -1,0 +1,52 @@
+.ShowVoteContainer .VoteHeader {
+  padding: 20px;
+}
+.ShowVoteContainer .VoteHeader h2 {
+  text-align: left;
+  font-weight: bold;
+}
+.ShowVoteContainer .VoteHeader .voteKind {
+  color: #339af0;
+}
+.ShowVoteContainer .VoteBody .VoteOptionCard {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.ShowVoteContainer .VoteBody .VoteOptionCard .content .anticon-check-circle {
+  vertical-align: -0.2em;
+  width: 30px;
+  margin-left: 0.5em;
+}
+.ShowVoteContainer .VoteBody .VoteOptionCard .stat span {
+  display: inline-block;
+  width: 30px;
+  margin-right: 20px;
+}
+.ShowVoteContainer .VoteBody .VoteOptionCard .stat span.voteCount {
+  margin-right: 20px;
+}
+.ShowVoteContainer .VoteBody .VoteOptionCard .stat span.votePercentage {
+  text-align: right;
+}
+
+.ant-progress-status-success .ant-progress-bg {
+  background-color: #1890ff;
+}
+.ShowVoteContainer .CardContainer img.avatar {
+  width: 30px;
+  border-radius: 30px;
+}
+.ShowVoteContainer .CardContainer .avatarContainer {
+  margin-bottom: 10px;
+}
+.ShowVoteContainer .VoteBody .anonymousButtonContainer {
+  padding: 20px;
+}
+.ShowVoteContainer .VoteBody .anonymousButtonContainer button {
+  width: 100%;
+}
+.adm-center-popup-wrap {
+  top: 30%;
+}

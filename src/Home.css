@@ -1,0 +1,16 @@
+.HomeFooter {
+  display: flex;
+  padding: 0 80px;
+  justify-content: space-between;
+  align-items: center;
+}
+.HomeBody {
+  min-height: 600px;
+  margin-bottom: 10px;
+}
+.HomeFooter a {
+  color: rgba(0, 0, 0, 0.85);
+}
+.HomeFooter a.active {
+  color: #1890ff;
+}

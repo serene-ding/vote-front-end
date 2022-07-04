@@ -1,0 +1,17 @@
+h1.SorM {
+  font-size: 20px;
+  text-align: center;
+}
+.Option {
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  cursor: pointer;
+}
+.Option .IconBox {
+  padding: 4px;
+  margin-right: 5px;
+}
+.Option .IconBox svg {
+  display: block;
+}

@@ -1,0 +1,33 @@
+.MeContainer {
+  min-height: 400px;
+}
+.MeContainer .MyVoteCard {
+  padding: 20px 24px;
+  font-size: 1.2em;
+  border: 1px solid #f0f0f0;
+  border-top: 0px;
+  cursor: pointer;
+}
+.MeContainer .MyVoteCardContainer .iconBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #333333;
+  cursor: pointer;
+}
+.MeContainer .MyVoteCardContainer a .iconBox {
+}
+.MeContainer .MyVoteCardContainer .iconBox svg {
+  color: #1890ff;
+}
+.MeContainer .MyVoteCardContainer .iconBox span {
+  width: 2em;
+}
+.MeContainer .MyVoteCardContainer .Choices {
+  display: flex;
+  gap: 2em;
+  padding: 2em;
+  border: 1px solid #f0f0f0;
+  border-top: 0px solid #f0f0f0;
+}
