@@ -11,6 +11,7 @@ import Me from "./Me";
 import MeNotLogin from "./MeNotLogin";
 import Register from "./Register";
 function App() {
+  console.log("app");
   return (
     <div className="App">
       <Routes>

@@ -1,3 +1,6 @@
+.HomeContainer {
+  border: 1px solid #f0f0f0;
+}
 .HomeFooter {
   display: flex;
   padding: 0 80px;
