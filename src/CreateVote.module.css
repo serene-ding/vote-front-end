@@ -15,3 +15,13 @@ h1.SorM {
 .Option .IconBox svg {
   display: block;
 }
+.Option .optionInput {
+  outline: none;
+  border: 0px;
+  border-bottom: 1px solid #eee;
+  padding: 1em;
+  width: 100%;
+}
+.Option .optionInput::placeholder {
+  color: #ccc;
+}

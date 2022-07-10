@@ -1,6 +1,7 @@
 import { useImmer } from "use-immer";
 import { useInput } from "./hooks";
 import { useToggle } from "ahooks";
+import { v4 as uuid } from "uuid";
 import {
   Button,
   DatePicker,
@@ -17,6 +18,7 @@ import type { DatePickerRef } from "antd-mobile/es/components/date-picker";
 import styles from "./CreateVote.module.css";
 import axios from "axios";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { couldStartTrivia } from "typescript";
 //@ts-ignore
 globalThis.axios = axios;
 export default function CreateVote() {
@@ -26,11 +28,25 @@ export default function CreateVote() {
   useEffect(() => {
     console.log(type, "type");
   }, [type]);
-
+  // const { value: optionText, onChange: setOptionText } = useInput("");
   const now = new Date();
   const title = useInput("");
   const description = useInput("");
   const deadline = useInput("");
+  const [anonymous, { toggle }] = useToggle(false);
+  let dateTime = new Date().getFullYear(); /* 获取现在的年份 */
+  const [options, updateOptions] = useImmer<{ value: string; id: string }[]>([
+    { value: "", id: uuid() },
+    { value: "", id: uuid() },
+  ]);
+  console.log(
+    title.value,
+    description.value,
+    deadline.value,
+    anonymous,
+    options,
+    "info"
+  );
   const onFinish = async () => {
     let info = {
       title: title.value,
@@ -38,41 +54,45 @@ export default function CreateVote() {
       deadline: deadline.value,
       anonymous: anonymous,
       multiple: type === "multiple",
-      options: options,
+      options: options.map((it) => it.value),
     };
     console.log(info);
     let res = await axios.post("/vote", info);
-    console.log(typeof res.data.result.voteId, "id");
+    console.log(res.data, "id");
     navigate("/vote/" + res.data.result.voteId);
   };
-  const [options, updateOptions] = useImmer<string[]>(["", ""]);
+
+  console.log(options);
   function addOption() {
     updateOptions((options) => {
-      options.push("");
+      options.push({ value: "", id: uuid() });
     });
   }
+
   function delOption(index: number) {
+    console.log(index);
     updateOptions((options) => {
       options.splice(index, 1);
     });
   }
   function editOption(e: React.ChangeEvent<HTMLInputElement>, index: number) {
     updateOptions((options) => {
-      options[index] = e.target.value;
+      options[index]["value"] = e.target.value;
     });
   }
-  function editOptionAnt(s: string, index: number) {
-    updateOptions((options) => {
-      options[index] = s;
-    });
-  }
+  // function editOptionAnt(s: string, index: number) {
+  //   updateOptions((options) => {
+  //     options[index]["value"] = s;
+  //     return options;
+  //   });
+  // }
   let SorM;
   if (type === "multiple") {
     SorM = "多选";
   } else {
     SorM = "单选";
   }
-  const [anonymous, { toggle }] = useToggle(false);
+
   return (
     <div>
       {/* <div>
@@ -119,13 +139,12 @@ export default function CreateVote() {
 
       <h1 className={styles.SorM}>{"创建" + SorM + "投票"}</h1>
       <Form
-        onFinish={onFinish}
         layout="horizontal"
-        footer={
-          <Button block type="submit" color="primary" size="large">
-            完成
-          </Button>
-        }
+        // footer={
+        //   <Button block type="submit" color="primary" size="large">
+        //     完成
+        //   </Button>
+        // }
       >
         <Form.Item name="title">
           <Input
@@ -137,52 +156,65 @@ export default function CreateVote() {
         <Form.Item name="description">
           <Input {...description} placeholder="补充描述（选填）" />
         </Form.Item>
-        {options.map((option, index) => {
-          return (
-            <Form.Item key={index}>
+      </Form>
+      {options.map((option, index) => {
+        return (
+          <div key={option.id}>
+            <div
+              onClick={() => {
+                console.log("click");
+              }}
+              className={styles.Option}
+            >
               <div
-                onClick={() => {
-                  console.log("click");
-                }}
-                className={styles.Option}
+                className={styles.IconBox}
                 style={{ color: "var(--adm-color-danger)" }}
+                onClick={() => {
+                  delOption(index);
+                }}
               >
-                <div
-                  className={styles.IconBox}
-                  onClick={() => {
-                    delOption(index);
-                  }}
-                >
-                  <DeleteOutline />
-                </div>
-                <Input
-                  style={{ "--font-size": "15px", color: "grey" }}
-                  name="option"
-                  onChange={(s) => {
-                    editOptionAnt(s, index);
-                  }}
-                  placeholder="选项"
-                />
+                <DeleteOutline />
               </div>
-            </Form.Item>
-          );
-        })}
-
-        <Form.Item>
-          <div
-            onClick={() => {
-              addOption();
-            }}
-            className={styles.Option}
-            style={{ color: "var(--adm-color-primary)" }}
-          >
-            <div className={styles.IconBox}>
-              <AddCircleOutline color="var(--adm-color-primary)" />
+              <input
+                className={styles.optionInput}
+                name="option"
+                value={option.value}
+                onChange={(e) => editOption(e, index)}
+                placeholder="选项"
+              />
             </div>
-            <div>添加选项</div>
           </div>
-        </Form.Item>
+        );
+      })}
 
+      <Form.Item>
+        <div
+          onClick={() => {
+            addOption();
+          }}
+          className={styles.Option}
+          style={{ color: "var(--adm-color-primary)" }}
+        >
+          <div className={styles.IconBox}>
+            <AddCircleOutline color="var(--adm-color-primary)" />
+          </div>
+          <div>添加选项</div>
+        </div>
+      </Form.Item>
+      <Form
+        layout="horizontal"
+        footer={
+          <Button
+            block
+            type="submit"
+            color="primary"
+            size="large"
+            onClick={onFinish}
+          >
+            完成
+          </Button>
+        }
+      >
         <Form.Item
           name="anonymous"
           label="匿名投票"
@@ -207,6 +239,7 @@ export default function CreateVote() {
           <DatePicker
             min={now}
             precision="minute"
+            defaultValue={new Date(new Date().setFullYear(dateTime + 1))}
             value={new Date(deadline.value)}
             onConfirm={(val) => {
               deadline.onChange(val.toString());
@@ -218,6 +251,7 @@ export default function CreateVote() {
           </DatePicker>
         </Form.Item>
       </Form>
+      {/* </Form> */}
     </div>
   );
 }

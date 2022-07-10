@@ -17,7 +17,7 @@ export default function Register() {
     setAvatarUrl(res.data[0]);
   }
   async function onFinish(values: any) {
-    values["avatar"] = "http://localhost:8081" + avatarUrl;
+    values["avatar"] = avatarUrl;
     await axios.post("/account/register", values);
     console.log(values);
     await axios.post("/account/login", values);
@@ -80,9 +80,7 @@ export default function Register() {
             <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z" />
           </svg>
           <span className="text">上传头像</span>
-          {avatarUrl && (
-            <img src={"http://localhost:8081" + avatarUrl} alt=""></img>
-          )}
+          {avatarUrl && <img src={avatarUrl} alt=""></img>}
         </div>
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit">
